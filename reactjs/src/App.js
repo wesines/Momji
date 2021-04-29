@@ -1,68 +1,125 @@
 
-/*Développer une mini application en ReactJS en suivants ces spécifications :
-1/ récupérer une liste d’intervenants depuis le endpoint API :
-https://team.momji.fr/api/v2/static/employees
-2/ afficher la liste des intervenants sous la forme d’une liste avec possibilité de filtrer (par
-nom, statut ...)
-3/ au clic sur un intervenant, ouvrir un formulaire d’édition permettant de modifier les
-données liées à cet intervenant
-4/ au moment de soumettre le formulaire, afficher le json destiné à mettre à jour l’API
-En développant cette application, tu dois garder en tête qu'elle est susceptible
-d'évoluer (nouveaux champs, nouveaux filtres de recherche ...)
-Des tests unitaires seront les bienvenus (Jest ...) .
-Pense à commenter ton code et à commiter de manière atomique.
-Le test technique sera publié sur une plateforme de versionning au choix (Github ou
-Gitlab).
-
-NB: le développement de la partie API n’est pas demandé*/
-
-
 import React, { useState, useEffect } from 'react'
 import ListEmployee from './components/ListEmployee'
 function App() {
-  const [profile, setProfile] = useState("")
-  const [adress, setAdress] = useState("")
-  const [registered, setRegistered] = useState("")
-  const [isActive, setIsActive] = useState("")
-  const [employee, setEmployee] = useState("")
+  // const [profile, setProfile] = useState("")
+  // const [adress, setAdress] = useState("")
+  // const [registered, setRegistered] = useState("")
+  // const [isActive, setIsActive] = useState("")
+  const [employee, setEmployee] = useState([])
+  const [page, setPage] = useState(0)
+  const [numberOfPage, setNumberOfPage] = useState(0)
 
   useEffect(() => {
-    fetch("https://team.momji.fr/api/v2/static/employees")
+    fetch(`https://team.momji.fr/api/v2/static/employees?limit=20&offset=${page}`)
       .then(res => res.json())
       .then(resultat => {
         setEmployee(resultat);
+        setNumberOfPage(Math.floor(resultat.count / 20));
         console.log("state", employee)
       })
       .catch(error => console.error(error));
 
-  }, [])
+  }, [page])
 
+
+
+
+  const previousPage = () => {
+    if (page >= 20) {
+      setPage(page - 20);
+    }
+  };
+  const nextPage = () => {
+    setPage(page + 20);
+  };
+  const paginationItem = () => {
+    const pages = [];
+    for (let i = 0; i < numberOfPage; i++) {
+      pages.push(
+        <li class="page-item">
+          <button class="page-link" onClick={() => setPage(i * 20)}>
+            {i + 1}
+          </button>
+        </li>
+      );
+    }
+
+    return pages;
+  }
   return (
-    <div className="App" >
+  <div className="container">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">
+            FirstName
+                        </th>
+          <th scope="col">
+            LastName
+                        </th>
+          <th scope="col">
+            Adress
+                        </th>
+          <th scope="col">
+            Date
+                        </th>
+          <th scope="col">
+            email
+                        </th>
+          <th scope="col">
+            Status
+                        </th>
+        </tr>
+      </thead>
 
-      {employee.map((item, index) => {
-        <div className="container">
-          <span key={index}> <ListEmployee
-            firstname={item.profile.firstname}
-            lastname={item.profile.lastname}
-            adress={item.profile.adress}
-            date={item.profile.registered}
-            status={item.profile.isactive}
+      {employee.map((item) => {
+        return (
 
-
+          <ListEmployee
+            firstName={item.profile.firstName}
+            lastName={item.profile.lastName}
+            address={item.address}
+            email={item.email}
+            date={item.registered}
+            status={item.isActive}
 
 
           />
 
-
-
-
-          </span>
-        </div>
+        );
       })}
-
-    </div >
+    </table>
+    <div className="ListButtons">
+      <div className="ListButtonsContainer">
+        <nav aria-label="Page navigation example">
+          <ul className="pagination">
+            <li className="page-item">
+              <button
+                class="page-link"
+                aria-label="Previous"
+                onClick={previousPage}
+              >
+                <span aria-hidden="true">&laquo;</span>
+              </button>
+            </li>
+            {paginationItem()}
+            <li class="page-item">
+              <button
+                class="page-link"
+                aria-label="Next"
+                onClick={nextPage}
+              >
+                <span aria-hidden="true">&raquo;</span>
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div >
   );
-}
+};
+
 
 export default App;
