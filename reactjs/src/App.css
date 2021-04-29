@@ -1,36 +1,11 @@
-.pokemonInformationContainer {
-  background-color: black;
-  color: white;
+.filter-part{
+
   padding: 32px;
-  position: fixed;
-  top: 0;
   width: 100%;
-  height: 224px;
-}
-
-.pokemonInformationImage {
   height: 100%;
+
 }
 
-.pokemonListContainer {
-  padding-top: 284px;
-}
+.list-employee{
 
-.pokemonThumbnail {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.ListButtons {
-  position: fixed;
-  top: 224px;
-  width: 100%;
-}
-
-.ListButtonsContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  padding-top: 24px;
 }

@@ -33,7 +33,7 @@ export default function ListEmployee() {
                                 LastName
                            </th>
                             <th scope="col">
-                                Adress
+                                Address
                            </th>
                             <th scope="col">
                                 Date
