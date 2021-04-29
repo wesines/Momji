@@ -42,7 +42,22 @@ function App() {
 
       {employee.map((item, index) => {
         <div className="container">
-          <span key={index}> <ListEmployee employee={item} /></span>
+          <span key={index}> <ListEmployee
+            firstname={item.profile.firstname}
+            lastname={item.profile.lastname}
+            adress={item.profile.adress}
+            date={item.profile.registered}
+            status={item.profile.isactive}
+
+
+
+
+          />
+
+
+
+
+          </span>
         </div>
       })}
 
