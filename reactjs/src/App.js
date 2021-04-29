@@ -41,8 +41,8 @@ function App() {
     <div className="App" >
 
       {employee.map((item, index) => {
-        <div className="">
-          <ListEmployee />
+        <div className="container">
+          <span key={index}> <ListEmployee employee={item} /></span>
         </div>
       })}
 
