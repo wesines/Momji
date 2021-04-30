@@ -1,5 +1,6 @@
 
-const express = require("express")
+const express = require("express");
+const { employee } = require("../config/db.config.js");
 const router = express.Router();
 const db = require('../config/db.config.js');
 
@@ -135,20 +136,20 @@ module.exports.deleteAllTeam = async (req, res, next) => {
 //add Employee
 module.exports.createEmployee = async (req, res, next) => {
     try {
-        // db.employee.create({
-        //     profile: req.body.profile,
-        //     email: req.body.email,
-        //     address: req.body.address,
-        //     registered: req.body.registered,
-        //     created_at: req.body.created_at,
-        //     updated_at: req.body.updated_at
+        db.employee.create({
+            profile: req.body.profile,
+            email: req.body.email,
+            address: req.body.address,
+            registered: req.body.registered,
+            created_at: req.body.created_at,
+            updated_at: req.body.updated_at
 
-        // })
-        //     .then(team => {
-        //         // Send created customer to client
-        //         console.log("team created", team)
-        //         res.json(team);
-        //     })
+        })
+            .then(employee => {
+                // Send created customer to client
+                console.log("employee created", employee)
+                res.json(employee);
+            })
 
     } catch (err) {
         console.log(err);
@@ -185,14 +186,15 @@ module.exports.getAllEmployee = async (req, res, next) => {
 //  editEmployee
 module.exports.editEmployee = async (req, res, next) => {
     try {
-        db.employee.findById(req.params.id,
+        db.employee.findByPk(req.params.id,
             { attributes: { exclude: ["updated_at", "updated_at"] } }
         )
-            .then(team => {
-                if (!team) {
+            .then(employee => {
+                console.log("employee", employee.profile)
+                if (!employee) {
                     return res.status(404).json({ message: "Employee Not Found" })
                 }
-                return res.status(200).json("team created", employee)
+                return res.status(200).json("Employee updated", employee)
             }
             )
     } catch (err) {

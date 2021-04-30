@@ -9,7 +9,7 @@ module.exports = (sequelize) => {
             type: DataTypes.INTEGER
         },
         profile: {
-            type: DataTypes.STRING
+            type: DataTypes.JSON
         },
         email: {
             type: DataTypes.STRING

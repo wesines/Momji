@@ -1,0 +1,144 @@
+{
+	"info": {
+		"_postman_id": "127f6620-6cc8-4365-b15f-31e270ed680f",
+		"name": "MomjiCollectionEmployee",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/momji/getAllEmployee",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/momji/getAllEmployee",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"momji",
+						"getAllEmployee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/momji/editEmployee/2",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"5f182e5bb6d211f4ddd99e9b\",\r\n    \"profile\": {\r\n        \"firstName\": \"Ines\",\r\n        \"lastName\": \"Wes\"\r\n    },\r\n    \"email\": \"wes.ines@gmail.com\",\r\n    \"address\": \"France\",\r\n    \"registered\": \"2018-04-17T04:59:45.195Z\",\r\n    \"isActive\": true,\r\n    \"created_at\": \"2018-04-17 12:12:00\",\r\n    \"updated_at\": \"2018-07-18 13:18:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/momji/editEmployee/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"momji",
+						"editEmployee",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/momji/deleteEmployee/1",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/momji/deleteEmployee/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"momji",
+						"deleteEmployee",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/momji/getEmployeeByID/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/momji/getEmployeeByID/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"momji",
+						"getEmployeeByID",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/momji/createEmployee",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"5f182e5bb6d211f4ddd99e9b\",\r\n    \"profile\": {\r\n        \"firstName\": \"Jodie\",\r\n        \"lastName\": \"Copeland\"\r\n    },\r\n    \"email\": \"jodie.copeland@gmail.com\",\r\n    \"address\": \"930 Lewis Avenue, Bonanza, Idaho, 7682\",\r\n    \"registered\": \"2018-04-17T04:59:45.195Z\",\r\n    \"isActive\": true,\r\n    \"created_at\": \"2018-04-17 12:12:00\",\r\n    \"updated_at\": \"2018-07-18 13:18:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/momji/createEmployee",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"momji",
+						"createEmployee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/momji/deleteAllEmployee",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/momji/deleteAllEmployee",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"momji",
+						"deleteAllEmployee"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

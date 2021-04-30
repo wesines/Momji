@@ -13,6 +13,7 @@
     "express": "^4.17.1",
     "mariadb": "^2.5.3",
     "mysql2": "^2.2.5",
-    "sequelize": "^6.6.2"
+    "sequelize": "^6.6.2",
+    "sequelize-to-json": "^0.10.4"
   }
 }
