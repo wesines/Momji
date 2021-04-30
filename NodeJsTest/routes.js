@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const VerifyJWT = require('../config/VerifyJWT');
-const ctrlSchtroumpf = require('../controllers/schtroumpf.Controller');
-
+const CtrlApi = require('./Controllers/CtrlApi');
 
 router.post('/createTeam', CtrlApi.createTeam);
 router.post('/createEmployee', CtrlApi.createEmployee);
