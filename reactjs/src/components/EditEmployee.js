@@ -15,7 +15,6 @@ export default function EditEmployee(props) {
     const [lastName, setLastName] = useState();
     const [firstName, setFirstName] = useState();
     const [validTarget, setValidTarget] = useState(true);
-    const [intervenant, setIntervenant] = useState('');
 
     const id = props.match.params.id;
     //charger les states par les détails de l'employer à  modifier
@@ -71,7 +70,7 @@ export default function EditEmployee(props) {
         console.log("Datepicker clicked")
         setSDate(event.target.value)
     }
-    //afficher le json de modification dans la console
+    //afficher le json de modification dans la console et dans un message Alert
     const onSubmit = (e) => {
         e.preventDefault();
         let intervenant = []
@@ -152,9 +151,7 @@ export default function EditEmployee(props) {
 
                 </form>
             </div >
-            <div className="container">
-                {intervenant ? intervenant : ''}
-            </div>
+
 
         </>
 

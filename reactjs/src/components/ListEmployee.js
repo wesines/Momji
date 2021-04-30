@@ -19,9 +19,6 @@ export default function ListEmployee() {
             .then(res => res.json())
             .then(resultat => {
                 setEmployee(resultat);
-                console.log("state", employee)
-                console.log("resultat", resultat.length)
-
             })
             .catch(error => console.error(error));
 
@@ -106,10 +103,10 @@ export default function ListEmployee() {
                                 //employee en envoyant avec une props pour afficher la liste dans un table         
                                 employee ?
                                     (
-                                        employee.map((item) => {
+                                        employee.map((item, index) => {
                                             return (
                                                 <tbody>
-                                                    <tr>
+                                                    <tr key={index}>
                                                         <Employee employee={item} />
                                                     </tr>
                                                 </tbody>
