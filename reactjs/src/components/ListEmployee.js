@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Employee from './Employee'
 
-import './search.css'
+import './css/search.css'
 import SelectSearch from 'react-select-search';
 import Entete from './Entete';
 

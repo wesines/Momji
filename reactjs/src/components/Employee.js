@@ -20,7 +20,7 @@ export default function Employee({ employee }) {
                 {employee.address}
             </td>
             <td scope="row">
-                {moment(employee.registered).format('MMMM Do YYYY')}
+                {moment(employee.registered).format('YYYY-MM-DD HH:mm:ss')}
             </td>
             <td scope="row">
                 {employee.email}
