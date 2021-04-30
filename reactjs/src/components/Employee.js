@@ -1,27 +1,34 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import moment from 'moment'
+import { Link } from "react-router-dom";
 export default function Employee({ employee }) {
 
     return (//je recupere la props employee et j'affiche les details des apprenants
         <>
-            <th scope="row">
+            <td scope="row">
+                <Link to={`/editEmployee/${employee.id}`}>modifier</Link>
+            </td>
+            <td scope="row">
+
                 {employee.profile.firstName}
-            </th>
-            <th scope="row">
+
+            </td>
+            <td scope="row">
                 {employee.profile.lastName}
-            </th>
-            <th scope="row">
+            </td>
+            <td scope="row">
                 {employee.address}
-            </th>
-            <th scope="row">
+            </td>
+            <td scope="row">
                 {moment(employee.registered).format('MMMM Do YYYY')}
-            </th>
-            <th scope="row">
+            </td>
+            <td scope="row">
                 {employee.email}
-            </th>
-            <th scope="row">
-                {employee.isActive}
-            </th>
+            </td>
+            <td scope="row">
+                {(employee.isActive) ? "true" : "false"}
+
+            </td>
         </>
 
     )
