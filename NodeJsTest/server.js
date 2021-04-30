@@ -1,10 +1,9 @@
 const express = require('express')
 
-//const getConnection = require("./config/db")
 const routesList = require('./routes');
 
 const app = express();
-//getConnection()
+
 const db = require('./config/db.config.js');
 
 db.sequelize.sync({ force: true }).then(() => {

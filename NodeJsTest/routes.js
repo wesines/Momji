@@ -11,7 +11,9 @@ router.get('/getEmployeeByID/:id', CtrlApi.getEmployeeByID);
 router.put('/editTeam/:id', CtrlApi.editTeam);
 router.put('/editEmployee/:id', CtrlApi.editEmployee);
 router.delete('/deleteTeam/:id', CtrlApi.deleteTeam);
-router.delete('/deleteEmployee/:id', CtrlApi.deleteEmployee);
+router.delete('/deleteTeam/:id', CtrlApi.deleteTeam);
+router.delete('/deleteAllTeam', CtrlApi.deleteAllTeam);
+router.delete('/deleteAllEmployee', CtrlApi.deleteAllEmployee);
 
 
 module.exports = router;
