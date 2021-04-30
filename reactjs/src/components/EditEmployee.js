@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react'
 import moment from 'moment'
+import { Alert } from 'bootstrap';
 //import { DateTime } from 'react-datetime-bootstrap';
 
 export default function EditEmployee(props) {
@@ -66,15 +67,29 @@ export default function EditEmployee(props) {
     const handleChangeDate = (event) => {
         //  setSDate(event.target.value)
     }
+    //afficher le json de modification dans la console
+    const onSubmit = (e) => {
+        e.preventDefault();
+        let intervenant = []
+        intervenant.push({
+            "id": "",
+            "profile": {
+                "firstName": firstName,
+                "lastName": lastName,
+            },
+            "email": email,
+            "address": address,
+            "registered": setStDate,
+            "isActive": selectValue,
 
-    const handleEdit = (e) => {
-        console.log(employee)
-    }
+        })
+        console.log("intervenant", intervenant)
+    };
 
 
     return (
         <div className="container">
-            <form>
+            <form onSubmit={onSubmit}>
                 <div className="form-row">
                     <div className="form-group col-md-6">
                         <label for="inputEmail4">FirstName</label>
