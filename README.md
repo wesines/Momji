@@ -3,10 +3,10 @@
 > MôMJITest est composé de  deux parties séparés
 **test front reactjs**
 >npm install
-npm start
+>npm start
 **test backen** 
-npm install
-nodemon server
+>npm install
+>nodemon server
 
 
 les fichiers
