@@ -1,21 +1,22 @@
 # MomjiTest
 
-> MôMJITest est composé de  deux parties séparés
-**test front reactjs**
------------------
-**npm install**
------------------
-**npm start**
-**test NodeJsTest** 
+> MôMJIT est composé de  deux parties séparés
+**reactjs**
 -----------------
 >npm install
 -----------------
->nodemon server
+>npm start
+-----------------
+**NodeJsTest** 
+-----------------
+>npm install
+-----------------
+>nodemon server.js
 
 
-**Les fichiers**
+**Les collections team et Employee exportés du postman**
 >MomjiCollectionEmployee.postman_collection.json
 -----------------
 >MomjiCollectionTeam.postman_collection.json
------------------
-sont les deux collections team et Employee exportés du postman
+
+
