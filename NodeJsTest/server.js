@@ -18,7 +18,8 @@ app.use('/momji', routesList);
 
 
 app.get('/', (req, res) => {
-    console.log("every body can see this")
+    console.log("Welcome to our MOMJI_NodeJs Test")
+    res.send("Welcome to our MOMJI_NodeJs Test")
 })
 
 

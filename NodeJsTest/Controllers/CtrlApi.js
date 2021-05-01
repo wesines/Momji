@@ -1,12 +1,11 @@
 
 const express = require("express");
-const { employee } = require("../config/db.config.js");
-const router = express.Router();
+
 const db = require('../config/db.config.js');
 
 
 //add Team
-module.exports.createTeam = async (req, res, next) => {
+module.exports.createTeam = (req, res, next) => {
     // Validate request
     if (!req.body.name) {
         res.status(400).send({
@@ -44,86 +43,71 @@ module.exports.getAllTeam = async (req, res, next) => {
             })
     }
     catch (err) {
-        console.log(err);
+        console.log(err.message);
         res.status(500).send("Something went wrong ")
     }
 }
 
 // getTeamByID
-module.exports.getTeamByID = async (req, res, next) => {
-    try {
-        db.team.findById(req.params.id,
-            { attributes: { exclude: ["updated_at", "updated_at"] } }
-        )
-            .then(team => {
-                if (!team) {
-                    return res.status(404).json({ message: "Team Not Found" })
-                }
-                return res.status(200).json("team created", team)
+module.exports.getTeamByID = (req, res, next) => {
+    db.team.findByPk(req.params.id)
+        .then((team) => {
+            if (!team) {
+                return res.status(404).json({ message: 'Team Not Found' });
             }
-            )
-    } catch (err) {
-        console.log(err);
-        res.status(500).send("Something went wrong ")
-    }
+
+            return res.status(200).json(team);
+        })
+        .catch((error) => {
+            return res.status(400).json(error.message)
+        });
 }
 
 //  editTeam
-module.exports.editTeam = async (req, res, next) => {
+module.exports.editTeam = (req, res, next) => {
     try {
-        db.team.findByPk(req.params.id,
-            { attributes: { exclude: ["updated_at", "updated_at"] } }
-        )
+        db.team.findByPk(req.params.id)
             .then(
                 team => {
                     if (!team) {
-                        return res.status(404).json({
-                            message: 'Team Not Found',
-                        });
+                        return res.status(404).json({ message: 'Team Not Found' });
                     }
-                    return team.update({
+                    team.update({
                         name: req.body.name,
                         description: req.body.description,
-                        created_at: req.body.created_at,
-                        updated_at: req.body.updated_at
                     })
-                        .then(() => res.status(200).json("team updated", team))
+                        .then(() => { return res.status(200).json(team) })
+                        .then(() => { res.json("team updated", team); console.log("update is done") })
                         .catch((error) => res.status(400).send(error));
                 })
     }
     catch (err) {
-        console.log(err);
+        console.log(err.message);
         res.status(500).send("Something went wrong ")
     }
 }
 //  deleteTeam
-module.exports.deleteTeam = async (req, res, next) => {
+module.exports.deleteTeam = (req, res, next) => {
     try {
-        return db.team
-            .findByPk(req.params.id)
+        db.team.findByPk(req.params.id)
             .then(team => {
                 if (!team) {
-                    return res.status(400).send({
-                        message: 'Team Not Found',
-                    });
+                    return res.status(400).send({ message: 'Team Not Found', });
                 }
-
-                return team.destroy()
+                team.destroy()
                     .then(() => res.status(200).json({ message: "Team destroyed successfully!" }))
                     .catch(error => res.status(400).send(error));
             })
     } catch (err) {
-        console.log(err);
+        console.log(err.message);
         res.status(500).send("Something went wrong ")
     }
 }
 //deleteAllteams
-module.exports.deleteAllTeam = async (req, res, next) => {
+module.exports.deleteAllTeam = (req, res, next) => {
     try {
-        db.team.destroy({
-            where: {},
-            truncate: true
-        })
+
+        db.team.destroy({ truncate: true, cascade: false })
             .then(() => res.status(200).json({ message: "All Teams are  destroyed successfully!" }))
             .catch(error => res.status(400).send(error));
 
@@ -134,19 +118,18 @@ module.exports.deleteAllTeam = async (req, res, next) => {
 }
 
 //add Employee
-module.exports.createEmployee = async (req, res, next) => {
+module.exports.createEmployee = (req, res, next) => {
     try {
         db.employee.create({
             profile: req.body.profile,
             email: req.body.email,
             address: req.body.address,
             registered: req.body.registered,
-            created_at: req.body.created_at,
-            updated_at: req.body.updated_at
+            isActive: req.body.isActive,
+            idTeam: req.body.idTeam,
 
-        })
+        }, { onDelete: 'CASCADE' })
             .then(employee => {
-                // Send created customer to client
                 console.log("employee created", employee)
                 res.json(employee);
             })
@@ -158,9 +141,19 @@ module.exports.createEmployee = async (req, res, next) => {
 
 }
 //  getEmployeeByID
-module.exports.getEmployeeByID = async (req, res, next) => {
+module.exports.getEmployeeByID = (req, res, next) => {
     try {
+        db.employee.findByPk(req.params.id)
+            .then((employee) => {
+                if (!employee) {
+                    return res.status(404).json({ message: 'Employee Not Found' });
+                }
 
+                return res.status(200).json(employee);
+            })
+            .catch((error) => {
+                return res.status(400).json(error.message)
+            });
     } catch (err) {
         console.log(err.message);
         res.status(500).send("Something went wrong ")
@@ -171,6 +164,10 @@ module.exports.getEmployeeByID = async (req, res, next) => {
 module.exports.getAllEmployee = async (req, res, next) => {
     try {
         db.employee.findAll({
+            include: [{
+                model: db.team,
+                as: 'team'
+            }],
             attributes: { exclude: ["updated_at", "updated_at"] }
         })
             .then(employee => {
@@ -186,47 +183,45 @@ module.exports.getAllEmployee = async (req, res, next) => {
 //  editEmployee
 module.exports.editEmployee = async (req, res, next) => {
     try {
-        db.employee.findByPk(req.params.id,
-            { attributes: { exclude: ["updated_at", "updated_at"] } }
-        )
-            .then(employee => {
-                console.log("employee", employee.profile)
-                if (!employee) {
-                    return res.status(404).json({ message: "Employee Not Found" })
-                }
-                return res.status(200).json("Employee updated", employee)
-            }
-            )
-    } catch (err) {
-        console.log(err);
+        db.employee.findByPk(req.params.id)
+            .then(
+                employee => {
+                    if (!employee) {
+                        return res.status(404).json({ message: 'Employee Not Found' });
+                    }
+                    employee.update({
+
+                        ...employee,
+                        ...req.body
+                    })
+                        .then(() => { return res.status(200).json(employee) })
+                        .catch((error) => res.status(400).send(error));
+                })
+    }
+    catch (err) {
+        console.log(err.message);
         res.status(500).send("Something went wrong ")
     }
 }
-
 //  deleteEmployee
-module.exports.deleteEmployee = async (req, res, next) => {
+module.exports.deleteEmployee = (req, res, next) => {
     try {
-        return db.employee
-            .findByPk(req.params.id)
-            .then(team => {
-                if (!team) {
-                    return res.status(400).send({
-                        message: 'Employee Not Found',
-                    });
+        db.employee.findByPk(req.params.id)
+            .then(employee => {
+                if (!employee) {
+                    return res.status(400).send({ message: 'employee Not Found', });
                 }
-
-                return team.destroy()
-                    .then(() => res.status(200).json({ message: "Employee destroyed successfully!" }))
+                team.destroy()
+                    .then(() => res.status(200).json({ message: "employee destroyed successfully!" }))
                     .catch(error => res.status(400).send(error));
             })
     } catch (err) {
-
-        console.log(err);
+        console.log(err.message);
         res.status(500).send("Something went wrong ")
     }
 }
 
-module.exports.deleteAllEmployee = async (req, res, next) => {
+module.exports.deleteAllEmployee = (req, res, next) => {
     try {
         db.employee.destroy({
             where: {},

@@ -12,13 +12,8 @@ module.exports = (sequelize, Sequelize) => {
         },
         description: {
             type: DataTypes.STRING
-        },
-        created_at: {
-            type: DataTypes.DATE
-        },
-        updated_at: {
-            type: DataTypes.DATE
         }
+
     });
 
     return Team;

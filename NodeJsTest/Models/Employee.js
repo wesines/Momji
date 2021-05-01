@@ -22,12 +22,6 @@ module.exports = (sequelize) => {
         },
         isActive: {
             type: DataTypes.BOOLEAN
-        },
-        created_at: {
-            type: DataTypes.DATE
-        },
-        updated_at: {
-            type: DataTypes.DATE
         }
     });
 
